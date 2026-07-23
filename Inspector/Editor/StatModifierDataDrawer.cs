@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace StatSystem.Editor
 {
-    [CustomPropertyDrawer(typeof(StatModifierData))]
+    [CustomPropertyDrawer(typeof(ModifierData<>))]
     public class StatModifierDataDrawer : PropertyDrawer
     {
         // Stable object context tracking using SerializedObject hashcodes

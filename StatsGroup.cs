@@ -6,11 +6,11 @@ namespace StatSystem
     public class StatsGroup : IEnumerable<Stat>
     {
         private readonly Dictionary<string, Stat> _stats = new Dictionary<string, Stat>();
-        private readonly IStatCalculator _calculator;
+        private readonly ICalculator _calculator;
 
         public Stat this[string id] => GetStat(id);
 
-        public StatsGroup (IStatCalculator calculator = null)
+        public StatsGroup (ICalculator calculator = null)
             => _calculator = calculator ?? new DefaultStatCalculator();
         
         public override string ToString ()

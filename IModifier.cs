@@ -7,7 +7,7 @@ namespace StatSystem
     public interface IModifier
     {
         string StatId { get; }
-        ModificationType Type { get; }
+        int Type { get; }
         float Value { get; }
         IModifierSource Source { get; }
     }

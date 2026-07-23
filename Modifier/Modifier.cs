@@ -1,8 +1,8 @@
 namespace StatSystem
 {
-    public class StatModifier : IModifier
+    public class Modifier : IModifier
     {
-        public StatModifier (string targetStat, ModificationType type, float value, IModifierSource source = null)
+        public Modifier (string targetStat, int type, float value, IModifierSource source = null)
         {
             StatId = targetStat;
             Type = type;
@@ -11,7 +11,7 @@ namespace StatSystem
         }
 
         public string StatId { get; }
-        public ModificationType Type { get; }
+        public int Type { get; }
         public float Value { get; }
         public IModifierSource Source { get; }
     }

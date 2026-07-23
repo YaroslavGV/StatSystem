@@ -3,10 +3,10 @@
 namespace StatSystem
 {
     [Serializable]
-    public struct StatModifierData
+    public struct ModifierData<T> where T : Enum
     {
         public string stat;
-        public ModificationType type;
+        public T type;
         public float value;
     }
 
@@ -16,9 +16,9 @@ namespace StatSystem
     [AttributeUsage(AttributeTargets.Field)]
     public class LockModifierTypeAttribute : Attribute
     {
-        public ModificationType ForcedType { get; }
+        public ModifierType ForcedType { get; }
 
-        public LockModifierTypeAttribute (ModificationType forcedType = ModificationType.RawValue)
+        public LockModifierTypeAttribute (ModifierType forcedType = ModifierType.RawValue)
             => ForcedType = forcedType;
     }
 

@@ -56,7 +56,7 @@ namespace StatSystem.Tests
         public event Action<IModifier> OnValueChanged;
 
         public string StatId { get; set; }
-        public ModificationType Type { get; set; }
+        public int Type { get; set; }
         public IModifierSource Source { get; set; }
 
         public float Value
@@ -102,7 +102,7 @@ namespace StatSystem.Tests
             var healthStat = _statsGroup.GetStat("Health");
 
             // Creating a modifier intended for "Mana" but trying to inject it into "Health"
-            var wrongModifier = new StatModifier("Mana", ModificationType.RawValue, 10f);
+            var wrongModifier = new Modifier("Mana", (int)ModifierType.RawValue, 10f);
             // Act & Assert
             // Assumes your validation throws an ArgumentException (or you can change to LogAssert if you use Debug.LogError)
             Assert.Throws<ArgumentException>(() => healthStat.AddModifier(wrongModifier),
@@ -117,10 +117,10 @@ namespace StatSystem.Tests
 
             // Formula: (BaseValue * BaseMultiplier + AdditiveBonus) * ResultMultiplier
             // ( (0 + 100) * (1 + 0.2) + 15 ) * (1 + 0.1) = (120 + 15) * 1.1 = 135 * 1.1 = 148.5
-            stat.AddModifier(new StatModifier("Attack", ModificationType.RawValue, 100f));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.RawMultiplier, 0.2f));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.AdditiveValue, 15f));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.ResultMultiplier, 0.1f));
+            stat.AddModifier(new Modifier("Attack", (int)ModifierType.RawValue, 100f));
+            stat.AddModifier(new Modifier("Attack", (int)ModifierType.RawMultiplier, 0.2f));
+            stat.AddModifier(new Modifier("Attack", (int)ModifierType.AdditiveValue, 15f));
+            stat.AddModifier(new Modifier("Attack", (int)ModifierType.ResultMultiplier, 0.1f));
 
             // Act & Assert
             Assert.AreEqual(148.5f, stat.Value, 0.001f, "Math order of operations failed.");
@@ -131,7 +131,7 @@ namespace StatSystem.Tests
         {
             // Arrange
             var sword = new TestModifierSource();
-            sword.Modifiers.Add(new StatModifier("Attack", ModificationType.RawValue, 50f, sword));
+            sword.Modifiers.Add(new Modifier("Attack", (int)ModifierType.RawValue, 50f, sword));
             _inventoryAggregator.AddSource(sword);
 
             // Act
@@ -147,7 +147,7 @@ namespace StatSystem.Tests
             // Arrange
             _linker.RegisterAggregator(_inventoryAggregator);
             var shield = new TestModifierSource();
-            shield.Modifiers.Add(new StatModifier("Defense", ModificationType.RawValue, 30f, shield));
+            shield.Modifiers.Add(new Modifier("Defense", (int)ModifierType.RawValue, 30f, shield));
 
             // Act: Dynamic Add
             _inventoryAggregator.AddSource(shield);
@@ -167,12 +167,12 @@ namespace StatSystem.Tests
         {
             // Arrange
             var speedStat = _statsGroup.GetStat("Speed");
-            speedStat.AddModifier(new StatModifier("Speed", ModificationType.RawValue, 10f)); // Requires the baseline feature we implemented earlier
+            speedStat.AddModifier(new Modifier("Speed", (int)ModifierType.RawValue, 10f)); // Requires the baseline feature we implemented earlier
 
             var dynamicBuff = new TestDynamicModifier
             {
                 StatId = "Speed",
-                Type = ModificationType.AdditiveValue,
+                Type = (int)ModifierType.AdditiveValue,
                 Value = 5f,
                 Source = null
             };

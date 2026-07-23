@@ -20,19 +20,19 @@ A lightweight, highly optimized, type-safe, and dependency-free Stat System writ
 By default, the mathematical execution order adheres to:  
 `Value = (RawValue * RawMultiplier + AdditiveValue) * ResultMultiplier`
 
-To change this, create your own implementation of `IStatCalculator` and `IStatCalculationResult`.
-
 ```csharp
-// Setup a stats group with the default calculator.
+// StatsGroup without argument use the default calculator.
 var stats = new StatsGroup();
 
-stats.AddModifier(new StatModifier("Attack", ModificationType.RawValue, 100f));
-stats.AddModifier(new StatModifier("Attack", ModificationType.RawMultiplier, 0.2f)); // +20% Base
-stats.AddModifier(new StatModifier("Attack", ModificationType.AdditiveValue, 15f)); // +15 flat flat bonus
+stats.AddModifier(new StatModifier("Attack", (int)ModifierType.RawValue, 100f));
+stats.AddModifier(new StatModifier("Attack", (int)ModifierType.RawMultiplier, 0.2f)); // +20% Base
+stats.AddModifier(new StatModifier("Attack", (int)ModifierType.AdditiveValue, 15f)); // +15 flat flat bonus
 
 // Value is evaluated lazily on read: 100 * 1.2 + 15 = 135
-Debug.Log(\$"Current Attack: {stats["Attack"].Value}"); 
+Debug.Log($"Current Attack: {stats["Attack"].Value}"); 
 ```
+
+To create your own calculator, create an implementation of `ICalculator` and `ICalculationResult` and use your own modifier type.
 
 ### 2. Inspector Validation Attributes
 
@@ -48,11 +48,10 @@ public class ItemProfile : ScriptableObject
     public string Name;
     // Forces the inspector layout dropdown choices via Enum, locks calculation phase type to RawValue,
     // and visually alerts designers via a modern orange sidebar if any overlapping entries share the same parameters.
-    [LockModifierType(ModificationType.RawValue)]
+    [LockModifierType(ModifierType.RawValue)]
     [StatEnum(typeof(RPGStats))]
-    public List<StatModifierData> BaseStat;
-    [LockModifierType(ModificationType.RawValue)]
-    public List<StatModifierData> BonusStat;
+    public List<ModifierData<ModifierType>> BaseStat;
+    public List<ModifierData<ModifierType>> BonusStat;
 }
 ```
 ![Inspector](Sample/Inspector.png)

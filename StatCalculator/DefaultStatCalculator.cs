@@ -2,33 +2,33 @@ using System.Collections.Generic;
 
 namespace StatSystem
 {
-    public class DefaultStatCalculator : IStatCalculator
+    public class DefaultStatCalculator : ICalculator
     {
-        public StatCalculationResult Calculate (IEnumerable<IModifier> modifiers)
+        public CalculationResult Calculate (IEnumerable<IModifier> modifiers)
         {
-            StatCalculationResult result = CalculateSum(modifiers);
+            CalculationResult result = CalculateSum(modifiers);
             result.Value = (result.RawValue * result.RawMultiplier + result.AdditiveValue) * result.ResultMultiplier;
             return result;
         }
 
-        protected StatCalculationResult CalculateSum (IEnumerable<IModifier> modifiers)
+        protected CalculationResult CalculateSum (IEnumerable<IModifier> modifiers)
         {
-            StatCalculationResult result = StatCalculationResult.DefaultValues;
+            CalculationResult result = CalculationResult.DefaultValues;
 
             foreach (var m in modifiers)
             {
-                switch (m.Type)
+                switch ((ModifierType)m.Type)
                 {
-                    case ModificationType.RawValue:
+                    case ModifierType.RawValue:
                         result.RawValue += m.Value;
                         break;
-                    case ModificationType.RawMultiplier:
+                    case ModifierType.RawMultiplier:
                         result.RawMultiplier += m.Value;
                         break;
-                    case ModificationType.AdditiveValue:
+                    case ModifierType.AdditiveValue:
                         result.AdditiveValue += m.Value;
                         break;
-                    case ModificationType.ResultMultiplier:
+                    case ModifierType.ResultMultiplier:
                         result.ResultMultiplier += m.Value;
                         break;
                 }

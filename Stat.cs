@@ -6,12 +6,12 @@ namespace StatSystem
 {
     public class Stat
     {
-        private readonly IStatCalculator _calculator;
+        private readonly ICalculator _calculator;
         private bool _isDirty;
         private HashSet<IModifier> _modifiers = new HashSet<IModifier>();
         private List<IModifier> _toRemove = new List<IModifier>();
         
-        public Stat (string id, IStatCalculator calculator)
+        public Stat (string id, ICalculator calculator)
         {
             Id = id;
             _calculator = calculator;
@@ -20,7 +20,7 @@ namespace StatSystem
 
         public string Id { get; }
         public float Value => Recalculate();
-        public IStatCalculationResult CalculationResult { get; private set; }
+        public ICalculationResult CalculationResult { get; private set; }
 
         public override string ToString ()
         {

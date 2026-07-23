@@ -1,6 +1,6 @@
 namespace StatSystem
 {
-    public interface IStatCalculationResult
+    public interface ICalculationResult
     {
         float Value { get; set; }
     }

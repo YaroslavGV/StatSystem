@@ -13,25 +13,25 @@ namespace StatSystem.Tests
     {
         [Header("Standard Configuration")]
         [Tooltip("Standard list with no restrictions. Try entering duplicate stat names and types to see the error highlight.")]
-        public List<StatModifierData> defaultModifiers;
+        public List<ModifierData<ModifierType>> defaultModifiers;
 
         [Header("Enum Dropdown Attributes")]
         [Tooltip("Replaces the string text field with an enum dropdown. Duplicate checking still works based on selected items.")]
         [StatEnum(typeof(RPGStats))]
-        public List<StatModifierData> enumBasedModifiers;
+        public List<ModifierData<ModifierType>> enumBasedModifiers;
 
         [Header("Locked Modifier Type Attributes")]
         [Tooltip("Forces all modifiers to be BaseValue. The type field is disabled, and defaults are applied automatically.")]
-        [LockModifierType(ModificationType.RawValue)]
+        [LockModifierType(ModifierType.RawValue)]
         [StatEnum(typeof(RPGStats))]
-        public List<StatModifierData> characterBaseStats;
+        public List<ModifierData<ModifierType>> characterBaseStats;
 
         [Header("Single Structure Fields")]
         [Tooltip("Single instances to verify that drawing works correctly outside of lists.")]
-        public StatModifierData singleDefault;
+        public ModifierData<ModifierType> singleDefault;
 
-        [LockModifierType(ModificationType.ResultMultiplier)]
+        [LockModifierType(ModifierType.ResultMultiplier)]
         [StatEnum(typeof(RPGStats))]
-        public StatModifierData singleLockedMultiplier;
+        public ModifierData<ModifierType> singleLockedMultiplier;
     }
 }
