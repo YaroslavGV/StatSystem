@@ -19,6 +19,7 @@ A lightweight, highly optimized, type-safe, and dependency-free Stat System writ
 
 By default, the mathematical execution order adheres to:  
 `Value = (RawValue * RawMultiplier + AdditiveValue) * ResultMultiplier`
+
 To change this, create your own implementation of `IStatCalculator` and `IStatCalculationResult`.
 
 ```csharp
