@@ -2,7 +2,7 @@ namespace StatSystem
 {
     public class StatModifier : IModifier
     {
-        public StatModifier (string targetStat, ModificationType type, float value, IModifierSource source)
+        public StatModifier (string targetStat, ModificationType type, float value, IModifierSource source = null)
         {
             StatId = targetStat;
             Type = type;

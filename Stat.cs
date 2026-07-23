@@ -20,7 +20,7 @@ namespace StatSystem
 
         public string Id { get; }
         public float Value => Recalculate();
-        public StatCalculationResult CalculationResult { get; private set; }
+        public IStatCalculationResult CalculationResult { get; private set; }
 
         public override string ToString ()
         {

@@ -1,7 +1,7 @@
 namespace StatSystem
 {
     /// <summary> Sum of modifiers of different types. </summary>
-    public struct StatCalculationResult
+    public struct StatCalculationResult : IStatCalculationResult
     {
         public float RawValue      { get; set; }
         public float RawMultiplier { get; set; }

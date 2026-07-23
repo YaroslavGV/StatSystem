@@ -102,7 +102,7 @@ namespace StatSystem.Tests
             var healthStat = _statsGroup.GetStat("Health");
 
             // Creating a modifier intended for "Mana" but trying to inject it into "Health"
-            var wrongModifier = new StatModifier("Mana", ModificationType.RawValue, 10f, null);
+            var wrongModifier = new StatModifier("Mana", ModificationType.RawValue, 10f);
             // Act & Assert
             // Assumes your validation throws an ArgumentException (or you can change to LogAssert if you use Debug.LogError)
             Assert.Throws<ArgumentException>(() => healthStat.AddModifier(wrongModifier),
@@ -117,10 +117,10 @@ namespace StatSystem.Tests
 
             // Formula: (BaseValue * BaseMultiplier + AdditiveBonus) * ResultMultiplier
             // ( (0 + 100) * (1 + 0.2) + 15 ) * (1 + 0.1) = (120 + 15) * 1.1 = 135 * 1.1 = 148.5
-            stat.AddModifier(new StatModifier("Attack", ModificationType.RawValue, 100f, null));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.RawMultiplier, 0.2f, null));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.AdditiveValue, 15f, null));
-            stat.AddModifier(new StatModifier("Attack", ModificationType.ResultMultiplier, 0.1f, null));
+            stat.AddModifier(new StatModifier("Attack", ModificationType.RawValue, 100f));
+            stat.AddModifier(new StatModifier("Attack", ModificationType.RawMultiplier, 0.2f));
+            stat.AddModifier(new StatModifier("Attack", ModificationType.AdditiveValue, 15f));
+            stat.AddModifier(new StatModifier("Attack", ModificationType.ResultMultiplier, 0.1f));
 
             // Act & Assert
             Assert.AreEqual(148.5f, stat.Value, 0.001f, "Math order of operations failed.");
@@ -167,7 +167,7 @@ namespace StatSystem.Tests
         {
             // Arrange
             var speedStat = _statsGroup.GetStat("Speed");
-            speedStat.AddModifier(new StatModifier("Speed", ModificationType.RawValue, 10f, null)); // Requires the baseline feature we implemented earlier
+            speedStat.AddModifier(new StatModifier("Speed", ModificationType.RawValue, 10f)); // Requires the baseline feature we implemented earlier
 
             var dynamicBuff = new TestDynamicModifier
             {

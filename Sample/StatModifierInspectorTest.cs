@@ -33,14 +33,5 @@ namespace StatSystem.Tests
         [LockModifierType(ModificationType.ResultMultiplier)]
         [StatEnum(typeof(RPGStats))]
         public StatModifierData singleLockedMultiplier;
-
-        [ContextMenu("Log")]
-        private void Log ()
-        {
-            // Simple verification that runtime conversion works on these inspector lists
-            Debug.Log($"[InspectorTest] Component initialized. Converting single locked to runtime modifier...");
-            IModifier runtimeMod = singleLockedMultiplier.ToModifier(null);
-            Debug.Log($"[InspectorTest] Converted: Target={runtimeMod.StatId}, Type={runtimeMod.Type}, Value={runtimeMod.Value}");
-        }
     }
 }
