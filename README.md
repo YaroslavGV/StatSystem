@@ -53,8 +53,8 @@ public class ItemProfile : ScriptableObject
     [LockModifierType(ModificationType.RawValue)]
     public List<StatModifierData> BonusStat;
 }
-![Inspector](Sample/Inspector.png)
 ```
+![Inspector](Sample/Inspector.png)
 
 ### 3. Modifier Source
 
